@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Invisible Friend</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eeeef5;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            max-height: 750px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+        }
+
+        .header {
+            background: #6c63ff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .header p {
+            margin: 6px 0 0;
+            opacity: 0.9;
+        }
+
+        #chat {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .ai {
+            background: #eeeeF5;
+            color: #222;
+            margin-right: auto;
+        }
+
+        .user {
+            background: #6c63ff;
+            color: white;
+            margin-left: auto;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 12px;
+            border-top: 1px solid #ddd;
+            gap: 8px;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 13px 16px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        button {
+            border: none;
+            background: #6c63ff;
+            color: white;
+            padding: 0 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <h1>💜 Invisible Friend</h1>
+        <p>Someone is here to listen.</p>
+    </div>
+
+    <div id="chat">
+
+        <div class="message ai">
+            Hey 😊 I'm Invisible Friend. You can talk to me about anything that's on your mind.
+        </div>
+
+    </div>
+
+    <div class="input-area">
+
+        <input
+            id="userInput"
+            type="text"
+            placeholder="Tell me what's on your mind..."
+            onkeydown="if(event.key === 'Enter') sendMessage()"
+        >
+
+        <button onclick="sendMessage()">Send</button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function sendMessage() {
+
+    const input = document.getElementById("userInput");
+    const chat = document.getElementById("chat");
+
+    const message = input.value.trim();
+
+    if (message === "") {
+        return;
+    }
+
+    // Add user's message
+    const userMessage = document.createElement("div");
+
+    userMessage.className = "message user";
+    userMessage.textContent = message;
+
+    chat.appendChild(userMessage);
+
+    // Temporary response
+    const aiMessage = document.createElement("div");
+
+    aiMessage.className = "message ai";
+    aiMessage.textContent =
+        "I'm listening. Tell me more about that. 💜";
+
+    chat.appendChild(aiMessage);
+
+    // Clear input
+    input.value = "";
+
+    // Scroll to newest message
+    chat.scrollTop = chat.scrollHeight;
+}
+
+</script>
+
+</body>
+</html>
