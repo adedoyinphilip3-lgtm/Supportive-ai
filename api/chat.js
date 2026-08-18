@@ -41,8 +41,11 @@ export default async function handler(req, res) {
       console.error("Gemini error:", data);
 
       return res.status(response.status).json({
-        error: "Gemini could not answer the question."
-      });
+  error: data?.error?.message || "Gemini API error",
+  details: data
+});
+        
+      
     }
 
     const answer =
